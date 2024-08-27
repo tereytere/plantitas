@@ -1,10 +1,5 @@
 import { jwtDecode } from 'jwt-decode';
 
-
-export const getToken = () => {
-    return localStorage.getItem('token');
-};
-
 export const decodeToken = (token) => {
     if (!token) return null;
     try {
@@ -17,7 +12,7 @@ export const decodeToken = (token) => {
 
 export const fetchWithAuth = async (url, method = 'GET', body = null) => {
     try {
-        const token = getToken();
+        const token = localStorage.getItem('token');
         if (!token) throw new Error('No hay token');
 
         const decodedToken = decodeToken(token);

@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { useNavigate, useParams } from 'react-router-dom';
 import useFetchPlantData from '../hooks/useFetchPlantData';
-import { getToken, decodeToken } from '../utils/authUtils';
+import { decodeToken } from '../utils/authUtils';
 
 export default function SinglePlant() {
     const { plantId } = useParams();
@@ -27,7 +27,7 @@ export default function SinglePlant() {
     useEffect(() => {
         const checkRole = () => {
             try {
-                const token = getToken();
+                const token = localStorage.getItem('token');
                 if (!token) return;
 
                 const decodedToken = decodeToken(token);
@@ -49,7 +49,7 @@ export default function SinglePlant() {
     const handleUpdate = async (event) => {
         event.preventDefault();
 
-        const token = getToken();
+        const token = localStorage.getItem('token');
         if (!token) {
             navigate('/login');
             return;

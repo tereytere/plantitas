@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { fetchWithAuth, getToken } from '../utils/authUtils';
+import { fetchWithAuth } from '../utils/authUtils';
 
 const useFetchUserData = () => {
     const [user, setUser] = useState(null);
@@ -7,7 +7,7 @@ const useFetchUserData = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const token = getToken();
+            const token = localStorage.getItem('token');
             if (!token) {
                 setError('No hay token');
                 return;
@@ -18,6 +18,7 @@ const useFetchUserData = () => {
                 const userId = decodedToken.id;
 
                 const data = await fetchWithAuth(`http://localhost:5000/user/${userId}`, 'GET');
+                console.log('Fetched user data:', data);
                 if (data && data.findUser) {
                     setUser(data.findUser);
                 } else {

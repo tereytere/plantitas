@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 export default function House() {
+    console.log('House component mounted');
     const { loading } = useAuth();
     const navigate = useNavigate();
     const {
@@ -15,6 +16,10 @@ export default function House() {
         wishlistPlants,
         error
     } = useFetchAndFilterPlants();
+
+    console.log('housePlants:', housePlants);
+    console.log('wishlistPlants:', wishlistPlants);
+    console.log('Error:', error);
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error}</p>;

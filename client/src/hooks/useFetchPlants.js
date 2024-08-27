@@ -16,6 +16,7 @@ const useFetchPlants = () => {
                 }
 
                 const data = await response.json();
+
                 setPlants(data);
             } catch (error) {
                 setError(error);

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
-import { getToken, decodeToken, fetchWithAuth } from '../utils/authUtils';
+import { decodeToken, fetchWithAuth } from '../utils/authUtils';
 
 export default function PlantNew({ idP, image, name, description }) {
     const [size, setSize] = useState('');
@@ -13,7 +13,7 @@ export default function PlantNew({ idP, image, name, description }) {
     useEffect(() => {
         const checkRole = async () => {
             try {
-                const token = getToken();
+                const token = localStorage.getItem('token');
                 if (!token) return;
 
                 const decodedToken = decodeToken(token);
@@ -29,7 +29,7 @@ export default function PlantNew({ idP, image, name, description }) {
     }, []);
 
     const handleAction = async (status) => {
-        const token = getToken();
+        const token = localStorage.getItem('token');
         if (!token) {
             navigate('/login');
             return;
